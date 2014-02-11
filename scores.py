@@ -1,4 +1,4 @@
-import operator
+# import operator
 f = open("scores.txt")
 
 whole_file = f.read()
@@ -17,10 +17,25 @@ for line in lines:
         scores[line[0]] = line[1]
 
 #in descending order by value
-sorted_values = sorted(scores.iteritems(), key=operator.itemgetter(1), reverse=True)
-print sorted_values
+# sorted_values = sorted(scores.iteritems(), key=operator.itemgetter(1), reverse=True)
+# print sorted_values
 
-#alphabetically by key
-for key in sorted(scores.iterkeys()):
-    print "%s: %s" % (key, scores[key])
+# #alphabetically by key
+# for key in sorted(scores.iterkeys()):
+#     print "%s: %s" % (key, scores[key])
 
+# collect the keys that have the same value and sort alphabetically
+new_scores = {}
+for key, value in scores.iteritems():
+    new_key = value
+    new_value = key
+    if new_scores.get(new_key):
+        # print new_scores[new_key]
+        new_scores[new_key].append(new_value)
+    else:
+        new_scores[new_key] = [new_value]
+
+for key, value in new_scores.iteritems():
+    new_scores[key] = sorted(new_scores[key])
+
+print new_scores
